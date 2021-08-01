@@ -11,31 +11,36 @@ namespace Business.Concrete
 {
     public class ColorManager:IColorService
     {
-        IColorDal _iColorDal;
+        IColorDal _colorDal;
 
-        public ColorManager(IColorDal iColorDal)
+        public ColorManager(IColorDal colorDal)
         {
-            _iColorDal = iColorDal;
+            _colorDal = colorDal;
         }
 
         public void Add(Color color)
         {
-            _iColorDal.Add(color);
+            _colorDal.Add(color);
         }
 
         public void Update(Color color)
         {
-            _iColorDal.Update(color);
+            _colorDal.Update(color);
         }
 
         public void Delete(Color color)
         {
-            _iColorDal.Delete(color);
+            _colorDal.Delete(color);
         }
 
         public List<Color> GetAll()
         {
-            return _iColorDal.GetAll();
+            return _colorDal.GetAll();
+        }
+
+        public Color GetById(int id)
+        {
+            return _colorDal.Get(c => c.Id == id);
         }
     }
 }
