@@ -8,7 +8,7 @@ using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    interface IColorService
+    public interface IColorService
     {
         IResult Add(Color color);
         IResult Update(Color color);
