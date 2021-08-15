@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -19,39 +21,31 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
-
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
-            if (color.Name.Length < 0)
-            {
-                return new ErrorResult(Messages.ColorNameInvalid);
-            }
             _colorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
         }
-
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
-            if (color.Name.Length < 0)
-            {
-                return new ErrorResult(Messages.ColorNameInvalid);
-            }
             _colorDal.Update(color);
             return new SuccessResult(Messages.ColorUpdated);
 
         }
-
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
             return new SuccessResult(Messages.ColorDeleted);
         }
-
+        [ValidationAspect(typeof(ColorValidator))]
         public IDataResult<List<Color>> GetAll()
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorsListed);
         }
-
+        [ValidationAspect(typeof(ColorValidator))]
         public IDataResult<Color> GetById(int id)
         {
             return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == id),Messages.ColorListedById);
