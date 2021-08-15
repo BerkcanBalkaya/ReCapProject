@@ -34,18 +34,17 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CustomerUpdated);
 
         }
-        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);
             return new SuccessResult(Messages.CustomerDeleted);
         }
-        [ValidationAspect(typeof(CustomerValidator))]
+        
         public IDataResult<List<Customer>> GetAll()
         {
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomersListed);
         }
-        [ValidationAspect(typeof(CustomerValidator))]
+        
         public IDataResult<Customer> GetById(int id)
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id),Messages.CustomerListedById);

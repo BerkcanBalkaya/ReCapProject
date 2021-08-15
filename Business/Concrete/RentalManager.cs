@@ -26,10 +26,10 @@ namespace Business.Concrete
         {
             if (!isCarAvailable(rental))
             {
-                return new ErrorResult(Messages.UserInvalid);
+                return new ErrorResult(Messages.RentalInvalid);
             }
             _rentalDal.Add(rental);
-            return new SuccessResult(Messages.UserAdded);
+            return new SuccessResult(Messages.RentalAdded);
         }
         [ValidationAspect(typeof(RentalValidator))]
 
@@ -43,19 +43,16 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalUpdated);
 
         }
-        [ValidationAspect(typeof(RentalValidator))]
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
             return new SuccessResult(Messages.RentalDeleted);
         }
-        [ValidationAspect(typeof(RentalValidator))]
 
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalsListed);
         }
-        [ValidationAspect(typeof(RentalValidator))]
 
         public IDataResult<Rental> GetById(int id)
         {
