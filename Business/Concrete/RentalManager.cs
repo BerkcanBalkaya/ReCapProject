@@ -7,6 +7,7 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.BusinessRules;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -24,22 +25,26 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            if (!isCarAvailable(rental))
+            IResult result = BusinessRules.Run(isCarAvailable(rental));
+            if (result!=null)
             {
-                return new ErrorResult(Messages.RentalInvalid);
+                return result;
             }
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
+            
+            
         }
         [ValidationAspect(typeof(RentalValidator))]
 
         public IResult Update(Rental rental)
         {
-            if (!isCarAvailable(rental))
+            IResult result = BusinessRules.Run(isCarAvailable(rental));
+            if (result != null)
             {
-                return new ErrorResult(Messages.RentalInvalid);
+                return result;
             }
-            _rentalDal.Update(rental);
+            _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalUpdated);
 
         }
@@ -59,14 +64,14 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id), Messages.RentalListedById);
         }
 
-        public bool isCarAvailable(Rental rental)
+        public IResult isCarAvailable(Rental rental)
         {
             var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
             if (result.Any(r =>
                 r.ReturnDate >= rental.ReturnDate &&
                 r.RentDate <= rental.ReturnDate
-            )) return false;
-            return true;
+            )) return new ErrorResult(Messages.RentalDateOfCarInvalid);
+            return new SuccessResult();
 
         }
     }
