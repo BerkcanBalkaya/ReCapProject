@@ -28,7 +28,7 @@ namespace Business.Constants
         public static string CarNameOrPriceInvalid = "Car's name or price is invalid";
         public static string CarsListed = "Cars listed";
         public static string CarListedById = "Car listed by id";
-
+        
         public static string CustomerAdded = "Customer added";
         public static string CustomerUpdated = "Customer updated";
         public static string CustomerDeleted = "Customer deleted";
@@ -49,9 +49,18 @@ namespace Business.Constants
         public static string RentalInvalid = "Rental is invalid";
         public static string RentalsListed = "Rentals listed";
         public static string RentalListedById = "Rental listed by id";
+        public static string RentalDateOfCarInvalid = "Rental date of choosen car is invalid";
 
         public static string CarDetailListed = "Car detail listed";
 
-
+        public static string CarImageAdded="CarImage added";
+        public static string CarImageUpdated="CarImage updated";
+        public static string CarImageDeleted="CarImage deleted";
+        public static string CarImagesListed="CarImages listed";
+        public static string CarImageListedById="CarImage listed by id";
+        public static string CarImageEmpty="CarImage was empty and replaced with default image";
+        public static string CarImageNotEmpty="CarImage found";
+        public static string CarImageLimit="CarImage limit has been reached";
+        
     }
 }
