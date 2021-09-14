@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Entities.Concrete;
 
 namespace Business.Constants
 {
@@ -61,6 +63,15 @@ namespace Business.Constants
         public static string CarImageEmpty="CarImage was empty and replaced with default image";
         public static string CarImageNotEmpty="CarImage found";
         public static string CarImageLimit="CarImage limit has been reached";
-        
+
+        public static string ClaimsListedByUser = "Claims listed by user";
+        public static string UserListedByEmail = "User listed by email";
+        public static string UserNotFound = "User not found";
+        public static string PasswordError = "Password error";
+        public static string SuccessfulLogin = "Login Successfull";
+        public static string UserAlreadyExists = "User already Exists";
+        public static string UserRegistered = "User successfuly Registered";
+        public static string AccessTokenCreated = "Access token Created";
+        public static string AuthorizationDenied = "Autherization Denied";
     }
 }

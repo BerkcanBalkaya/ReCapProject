@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -20,7 +21,7 @@ namespace WebAPI.Controllers
             _rentalService = rentalService;
         }
 
-
+        //TODO: Authorization için ekleme yapman gerek haberin olsun 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
