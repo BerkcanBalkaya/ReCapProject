@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -11,10 +6,13 @@ using Core.Utilities.BusinessRules;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Concrete
 {
-    
+
     public class CarImageManager : ICarImageService
     {
         ICarImageDal _carImageDal;
@@ -73,7 +71,6 @@ namespace Business.Concrete
             if (!result)
             {
                 
-
                 return new ErrorDataResult<CarImage>(new CarImage{CarId = carId,ImagePath = DefaultRoutes.DefaultImage,UploadDate = DateTime.Now},Messages.CarImageEmpty);
             }
             return new SuccessDataResult<CarImage>(Messages.CarImageNotEmpty); 
