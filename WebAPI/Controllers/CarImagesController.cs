@@ -33,10 +33,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+
+        //TODO: will be removed in production(foreach)
         [HttpGet("getbycarid")]
         public IActionResult GetByCarId(int id)
         {
             var result = _carImageService.GetByCarId(id);
+            
+            foreach (var carImage in result.Data)
+            {
+                carImage.ImagePath = $"{DefaultRoutes.DefaultImageFolder}{Path.GetFileName(carImage.ImagePath)}";
+            }
             if (result.Success)
             {
                 return Ok(result);
@@ -50,7 +57,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                string path = DefaultRoutes.DefaultImageFolder;
+                string path = _webHostEnvironment.WebRootPath;
                 string fileNameWithGUID = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.FileName)}";
 
                 if (!Directory.Exists(path))
@@ -84,7 +91,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                string path = DefaultRoutes.DefaultImageFolder;
+                string path = _webHostEnvironment.WebRootPath;
                 string fileNameWithGUID = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.FileName)}";
                 var iresult = _carImageService.GetAll().Data.Where(c=>c.Id==carImage.Id).Any();
 
