@@ -56,24 +56,19 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.CarImagesListed);
         }
 
-        public IDataResult<CarImage> GetByCarId(int carId)
+        public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
-            var result=BusinessRules.Run(CheckIfCarImageExists(carId));
-            if (result!=null)
-            {
-                return (ErrorDataResult<CarImage>) result;
-            }
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarId == carId), Messages.CarImageListedById);
+            return CheckIfCarImageExists(carId);
         }
-        private IDataResult<CarImage> CheckIfCarImageExists(int carId)
+        private IDataResult<List<CarImage>> CheckIfCarImageExists(int carId)
         {
             var result = _carImageDal.GetAll(c => c.CarId == carId).Any();
             if (!result)
             {
-                
-                return new ErrorDataResult<CarImage>(new CarImage{CarId = carId,ImagePath = DefaultRoutes.DefaultImage,UploadDate = DateTime.Now},Messages.CarImageEmpty);
+                return new SuccessDataResult<List<CarImage>>(new List<CarImage>
+                    { new() { CarId = carId, ImagePath = DefaultRoutes.DefaultImage, UploadDate = DateTime.Now } },Messages.CarImagesListed);
             }
-            return new SuccessDataResult<CarImage>(Messages.CarImageNotEmpty); 
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId), Messages.CarImageListedById); 
         }
 
         private IResult CheckIfCarImageLimitExceed(int carId)
