@@ -57,7 +57,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                string path = _webHostEnvironment.WebRootPath;
+                string path = _webHostEnvironment.WebRootPath+"/images";
                 string fileNameWithGUID = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.FileName)}";
 
                 if (!Directory.Exists(path))
@@ -91,7 +91,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                string path = _webHostEnvironment.WebRootPath;
+                string path = _webHostEnvironment.WebRootPath + "/images";
                 string fileNameWithGUID = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.FileName)}";
                 var iresult = _carImageService.GetAll().Data.Where(c=>c.Id==carImage.Id).Any();
 
