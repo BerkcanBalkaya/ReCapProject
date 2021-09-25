@@ -54,6 +54,7 @@ namespace Business.Constants
         public static string RentalDateOfCarInvalid = "Rental date of choosen car is invalid";
 
         public static string CarDetailListed = "Car detail listed";
+        public static string CarDetailListedByCarId = "Car detail listed by carId";
 
         public static string CarImageAdded="CarImage added";
         public static string CarImageUpdated="CarImage updated";
@@ -73,5 +74,6 @@ namespace Business.Constants
         public static string UserRegistered = "User successfuly Registered";
         public static string AccessTokenCreated = "Access token Created";
         public static string AuthorizationDenied = "Autherization Denied";
+        
     }
 }
