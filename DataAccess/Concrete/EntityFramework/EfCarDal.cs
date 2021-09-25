@@ -12,19 +12,83 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal: EfEntityRepositoryBase<Car, ReCapProjectContext>, ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, ReCapProjectContext>, ICarDal
     {
         public List<CarDetailDto> GetCarDetails()
         {
             using (ReCapProjectContext context = new ReCapProjectContext())
             {
                 var result = from c in context.Cars
-                    join b in context.Brands on c.BrandId equals b.Id
-                    join co in context.Colors on c.ColorId equals co.Id
-                    select new CarDetailDto
-                    {
-                        CarName = c.Description, BrandName = b.Name, DailyPrice = c.DailyPrice, ColorName = co.Name
-                    };
+                             join b in context.Brands on c.BrandId equals b.Id
+                             join co in context.Colors on c.ColorId equals co.Id
+                             select new CarDetailDto
+                             {
+                                 CarId = c.Id,
+                                 CarName = c.Description,
+                                 BrandName = b.Name,
+                                 DailyPrice = c.DailyPrice,
+                                 ColorName = co.Name
+                             };
+                return result.ToList();
+            }
+        }
+
+        public List<CarDetailDto> GetCarDetailsByBrandId(int brandId)
+        {
+            using (ReCapProjectContext context = new ReCapProjectContext())
+            {
+                var result = from c in context.Cars
+                             join b in context.Brands on c.BrandId equals b.Id
+                             join co in context.Colors on c.ColorId equals co.Id
+                             where c.BrandId == brandId
+                             select new CarDetailDto
+                             {
+                                 CarId = c.Id,
+                                 CarName = c.Description,
+                                 BrandName = b.Name,
+                                 DailyPrice = c.DailyPrice,
+                                 ColorName = co.Name
+                             };
+                return result.ToList();
+            }
+        }
+
+        public List<CarDetailDto> GetCarDetailsByColorId(int colorId)
+        {
+            using (ReCapProjectContext context = new ReCapProjectContext())
+            {
+                var result = from c in context.Cars
+                             join b in context.Brands on c.BrandId equals b.Id
+                             join co in context.Colors on c.ColorId equals co.Id
+                             where c.ColorId == colorId
+                             select new CarDetailDto
+                             {
+                                 CarId = c.Id,
+                                 CarName = c.Description,
+                                 BrandName = b.Name,
+                                 DailyPrice = c.DailyPrice,
+                                 ColorName = co.Name
+                             };
+                return result.ToList();
+            }
+        }
+
+        public List<CarDetailDto> GetCarDetailsByColorAndBrandId(int colorId, int brandId)
+        {
+            using (ReCapProjectContext context = new ReCapProjectContext())
+            {
+                var result = from c in context.Cars
+                             join b in context.Brands on c.BrandId equals b.Id
+                             join co in context.Colors on c.ColorId equals co.Id
+                             where c.ColorId == colorId && c.BrandId == brandId
+                             select new CarDetailDto
+                             {
+                                 CarId = c.Id,
+                                 CarName = c.Description,
+                                 BrandName = b.Name,
+                                 DailyPrice = c.DailyPrice,
+                                 ColorName = co.Name
+                             };
                 return result.ToList();
             }
         }
