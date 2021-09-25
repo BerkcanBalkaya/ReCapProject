@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Business.Concrete
 {
-    //TODO: 5.gün 3.08.23 de kaldın devamında bir iki ufak şey var onları da ekle sonra githuba koy 
+    
     public class UserManager:IUserService
     {
         private IUserDal _userDal;
