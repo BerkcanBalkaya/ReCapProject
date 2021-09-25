@@ -9,7 +9,7 @@ namespace Business.Constants
 {
     public class DefaultRoutes
     {
-        public static string DefaultImageFolder = $"{Directory.GetParent(Directory.GetCurrentDirectory())}\\WebAPI\\wwwroot\\images\\";
+        public static string DefaultImageFolder = @"http://127.0.0.1:8080/WebAPI/wwwroot/images/";
         public static string DefaultImage = $"{DefaultImageFolder}defaultLogo.jpg";
     }
 }
