@@ -57,21 +57,8 @@ namespace WebAPI.Controllers
         {
             try
             {
-                string path = _webHostEnvironment.WebRootPath+"/images";
-                string fileNameWithGUID = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.FileName)}";
-
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                using (FileStream fileStream = System.IO.File.Create(Path.Combine(path, fileNameWithGUID)))
-                {
-                    image.CopyTo(fileStream);
-                    fileStream.Flush();
-                }
-                carImage.ImagePath = Path.Combine(path, fileNameWithGUID);
-                var result = _carImageService.Add(carImage);
+                carImage.ImagePath = _webHostEnvironment.WebRootPath+"/images";
+                var result = _carImageService.Add(image, carImage);
                 if (result.Success)
                 {
                     return Ok(result);
@@ -89,40 +76,12 @@ namespace WebAPI.Controllers
         [HttpPost("update")]
         public IActionResult Update([FromForm]CarImage carImage,IFormFile image)
         {
-            try
+            var result=_carImageService.Update(image,carImage);
+            if (result.Success)
             {
-                string path = _webHostEnvironment.WebRootPath + "/images";
-                string fileNameWithGUID = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.FileName)}";
-                var iresult = _carImageService.GetAll().Data.Where(c=>c.Id==carImage.Id).Any();
-
-                if (iresult)
-                {
-                    if (!System.IO.File.Exists(carImage.ImagePath))
-                    {
-                        throw new FileNotFoundException();
-                    }
-                    System.IO.File.Delete(carImage.ImagePath);
-                    using (FileStream fileStream = System.IO.File.Create(Path.Combine(path, fileNameWithGUID)))
-                    {
-                        image.CopyTo(fileStream);
-                        fileStream.Flush();
-                    }
-                    carImage.ImagePath = Path.Combine(path, fileNameWithGUID);
-                    var result = _carImageService.Update(carImage);
-                    if (result.Success)
-                    {
-                        return Ok(result);
-                    }
-                    return BadRequest(result);
-                }
-                return BadRequest(iresult);
+                return Ok(result);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]
@@ -130,12 +89,6 @@ namespace WebAPI.Controllers
         {
             try
             {
-                if (!System.IO.File.Exists(carImage.ImagePath))
-                {
-                    throw new FileNotFoundException();
-                }
-                System.IO.File.Delete(carImage.ImagePath);
-
                 var result = _carImageService.Delete(carImage);
                 if (result.Success)
                 {
