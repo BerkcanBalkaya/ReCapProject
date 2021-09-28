@@ -27,7 +27,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  CarName = c.Description,
                                  BrandName = b.Name,
                                  DailyPrice = c.DailyPrice,
-                                 ColorName = co.Name
+                                 ColorName = co.Name,
+                                 ModelYear = c.ModelYear
                              };
                 return result.ToList();
             }
@@ -47,7 +48,8 @@ namespace DataAccess.Concrete.EntityFramework
                         CarName = c.Description,
                         BrandName = b.Name,
                         DailyPrice = c.DailyPrice,
-                        ColorName = co.Name
+                        ColorName = co.Name,
+                        ModelYear = c.ModelYear
                     };
                 return result.SingleOrDefault();
             }
@@ -67,7 +69,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  CarName = c.Description,
                                  BrandName = b.Name,
                                  DailyPrice = c.DailyPrice,
-                                 ColorName = co.Name
+                                 ColorName = co.Name,
+                                 ModelYear = c.ModelYear
                              };
                 return result.ToList();
             }
@@ -87,7 +90,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  CarName = c.Description,
                                  BrandName = b.Name,
                                  DailyPrice = c.DailyPrice,
-                                 ColorName = co.Name
+                                 ColorName = co.Name,
+                                 ModelYear = c.ModelYear
                              };
                 return result.ToList();
             }
@@ -107,7 +111,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  CarName = c.Description,
                                  BrandName = b.Name,
                                  DailyPrice = c.DailyPrice,
-                                 ColorName = co.Name
+                                 ColorName = co.Name,
+                                 ModelYear = c.ModelYear
                              };
                 return result.ToList();
             }
