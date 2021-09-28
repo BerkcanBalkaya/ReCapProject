@@ -17,10 +17,12 @@ namespace Business.Concrete
     public class CarManager:ICarService
     {
         ICarDal _carDal;
+        ICarImageService _carImageService ;
 
-        public CarManager(ICarDal carDal)
+        public CarManager(ICarDal carDal, ICarImageService carImageService)
         {
             _carDal = carDal;
+            _carImageService = carImageService;
         }
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
@@ -36,6 +38,20 @@ namespace Business.Concrete
         }
         public IResult Delete(Car car)
         {
+            bool result = false;
+            List<CarImage> carImages =_carImageService.GetByCarId(car.Id).Data;
+            if (carImages.Count==1)
+            {
+                result = carImages[0].ImagePath.Equals(DefaultRoutes.DefaultImage);
+            }
+
+            if (!result)
+            {
+                foreach (var carImage in carImages)
+                {
+                    _carImageService.Delete(carImage);
+                }
+            }
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
