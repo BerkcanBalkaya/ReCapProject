@@ -74,6 +74,11 @@ namespace Business.Constants
         public static string UserRegistered = "User successfuly Registered";
         public static string AccessTokenCreated = "Access token Created";
         public static string AuthorizationDenied = "Autherization Denied";
-        
+
+        public static string CreditCardAdded = "CreditCard added";
+        public static string CreditCardUpdated = "CreditCard updated";
+        public static string CreditCardDeleted = "CreditCard deleted";
+        public static string CreditCardListed = "CreditCard listed";
+        public static string FileAdded = "File added";
     }
 }
