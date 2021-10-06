@@ -38,6 +38,18 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getbymail")]
+        public IActionResult GetByMail(string mail)
+        {
+            var result = _userService.GetByMail(mail);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         [HttpPost("add")]
         public IActionResult Add(User user)
         {

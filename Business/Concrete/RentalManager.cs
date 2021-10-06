@@ -45,7 +45,7 @@ namespace Business.Concrete
             {
                 return result;
             }
-            _rentalDal.Add(rental);
+            _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
 
         }

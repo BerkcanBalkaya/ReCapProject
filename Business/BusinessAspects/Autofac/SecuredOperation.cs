@@ -15,7 +15,7 @@ namespace Business.BusinessAspects.Autofac
 {
     public class SecuredOperation : MethodInterception
     {
-        private string[] _roles;
+        private string[] _roles;    
         private IHttpContextAccessor _httpContextAccessor;
 
         public SecuredOperation(string roles)
@@ -39,3 +39,4 @@ namespace Business.BusinessAspects.Autofac
         }
     }
 }
+    

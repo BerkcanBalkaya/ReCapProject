@@ -117,5 +117,38 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
+
+        public List<CarDetailDto> GetTopTenMostRentedCars()
+        {
+            using (ReCapProjectContext context = new ReCapProjectContext())
+            {
+                var topIds = (from id in (from rental in context.Rentals
+                        join car in context.Cars on rental.CarId equals car.Id
+                        group rental by car.Id
+                        into grouping
+                        orderby grouping.Count() descending
+                        select new
+                        {
+                            Id =
+                                grouping.Key
+                        })
+                    select id.Id).Take(10);
+
+                var result = from car in context.Cars
+                    join brand in context.Brands on car.BrandId equals brand.Id
+                    join color in context.Colors on car.ColorId equals color.Id
+                    join topSales in topIds on car.Id equals topSales
+                    select new CarDetailDto
+                    {
+                        CarId = car.Id,
+                        CarName = car.Description,
+                        BrandName = brand.Name,
+                        ColorName = color.Name,
+                        DailyPrice = car.DailyPrice,
+                        ModelYear = car.ModelYear
+                    };
+                return result.ToList();
+            }
+        }
     }
 }

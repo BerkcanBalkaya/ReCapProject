@@ -77,6 +77,11 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public List<CarDetailDto> GetTopTenMostRentedCars()
+        {
+            throw new NotImplementedException();
+        }
+
         public Car Get(int id)
         {
             return _cars.SingleOrDefault(c => c.Id == id);
